@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #037e41;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        section#home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            color: #333;
+            height: 100vh;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        .intro-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .intro-image img {
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            animation: fadeIn 2s;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            color: #fff;
+            background-color: #037e41;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: rgb(7, 59, 22);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 2rem;
+            background: #037e41;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        section#about {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        section#skills {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        section#resume {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        section#projects {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        section#contact {
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            margin-bottom: 2rem;
+        }
+
+        .skills-list, .projects-gallery, .services-list, .contact-form {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list {
+            display: flex;
+            justify-content: center;
+            gap: 7rem;
+        }
+
+        .skills-list li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            background-color: #037e41;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .skills-list li img {
+            width: auto;
+            height: 180px;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+
+        .projects-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10rem;
+        }
+
+        .projects-gallery li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background-color: #037e41;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .projects-gallery li img {
+            width: auto;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .projects-gallery li img {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.projects-gallery li img:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+        .projects-gallery li span {
+            display: inline-block;
+            padding: 0.5rem;
+            background-color: #023b1f;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .projects-gallery li {
+    position: relative;
+    overflow: hidden; 
+    border-radius: 5px;
+}
+
+.projects-gallery li img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.projects-gallery li:hover img {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+}
+
+.projects-gallery li:hover .overlay {
+    opacity: 1;
+}
+
+
+        .resume-list li, .projects-gallery li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resume-list li img, .projects-gallery li img {
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        section#projects h2 {
+            color: #000000;
+        } 
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Austin A S</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <div class="intro">
+            <div class="intro-text">
+                <h2>Hi, I'm Austin</h2>
+                <h3>Frontend Developer</h3>
+                <p>I am a first year CSE student looking forward to improve and educate myself in web development and designing. I'm constantly hungry for knowledge and I'm looking forward to developing skills and using them in my future projects.</p>
+                <a href="#contact" class="btn">Contact Me</a>
+            </div>
+            <div class="intro-image">
+                <img src="C:\Users\austi\OneDrive\Desktop\images\austin.jpg" alt="Austin A S">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="content">
+            <h2>About Me</h2>
+            <p>I am passionate about technology and continuously strive to improve my skills. I enjoy tackling new challenges and working on projects that require creative solutions.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="content">
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li>
+                    <img src="C:\Users\austi\OneDrive\Pictures\Saved Pictures\html.png" alt="HTML">
+                    <span>HTML & CSS</span>
+                </li>
+                <li>
+                    <img src="C:\Users\austi\OneDrive\Pictures\Saved Pictures\js.png" alt="JavaScript">
+                    <span>JavaScript</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="content">
+            <h2>Projects</h2>
+            <ul class="projects-gallery">
+                <li>
+                    <img src="C:\Users\austi\OneDrive\Pictures\Saved Pictures\alarm.webp" alt="Project 1">
+                    <div class="overlay">MiniProject</div>
+                    <span>Alarm</span>
+                </li>
+                <li>
+                    <img src="C:\Users\austi\Downloads\icon.png" alt="Project 2">
+                    <div class="overlay">Coming Soon</div>
+                    <span>MediMinder application</span>
+                </li>
+            </ul>
+        </div>
+    </section> 
+
+    
+    
+
+    <section id="resume">
+        <h2>Resume</h2>
+        <a href="your-resume.pdf" download>Download My Resume</a>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:your-email@example.com">austinaswin1@gmail.com</a></p>
+        <p>Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Austin. All rights reserved.</p>
+    </footer>
+</body>
+</html>

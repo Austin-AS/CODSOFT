@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #93c7a3;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background-color: #000000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 400px;
+        }
+
+        .display {
+            grid-column: span 4;
+            background-color: #021f0e;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px;
+            font-size: 2.5em;
+            border-radius: 10px;
+            overflow: hidden;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .current-operation {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 0.5em;
+            opacity: 0.7;
+        }
+
+        .button {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5em;
+            color: #000000;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(128, 126, 126, 0.2);
+        }
+
+        .button:hover {
+            background-color: #e2e6e8;
+        }
+
+        .button:active {
+            background-color: #a9adae;
+            transform: scale(0.95);
+        }
+
+        .button.operator {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .button.operator:hover {
+            background-color: #c37d0d;
+        }
+
+        .button.operator:active {
+            background-color: #5a380c;
+        }
+
+        .button.double {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="current-operation" id="current-operation"></div>
+            <div id="display">0</div>
+        </div>
+        <button class="button operator" onclick="clearDisplay()">AC</button>
+        <button class="button operator" onclick="backspace()">←</button>
+        <button class="button operator" onclick="calculatePercentage()">%</button>
+        <button class="button operator" onclick="chooseOperation('/')">÷</button>
+        <button class="button" onclick="appendNumber('7')">7</button>
+        <button class="button" onclick="appendNumber('8')">8</button>
+        <button class="button" onclick="appendNumber('9')">9</button>
+        <button class="button operator" onclick="chooseOperation('*')">×</button>
+        <button class="button" onclick="appendNumber('4')">4</button>
+        <button class="button" onclick="appendNumber('5')">5</button>
+        <button class="button" onclick="appendNumber('6')">6</button>
+        <button class="button operator" onclick="chooseOperation('-')">−</button>
+        <button class="button" onclick="appendNumber('1')">1</button>
+        <button class="button" onclick="appendNumber('2')">2</button>
+        <button class="button" onclick="appendNumber('3')">3</button>
+        <button class="button operator" onclick="chooseOperation('+')">+</button>
+        <button class="button double" onclick="appendNumber('0')">0</button>
+        <button class="button" onclick="appendNumber('.')">.</button>
+        <button class="button operator" onclick="calculate()">=</button>
+    </div>
+    <script>
+        let display = document.getElementById('display');
+        let currentOperationDisplay = document.getElementById('current-operation');
+        let currentInput = '0';
+        let operation = null;
+        let previousInput = '';
+
+        function appendNumber(number) {
+            if (currentInput === '0' && number !== '.') {
+                currentInput = number;
+            } else {
+                currentInput += number;
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            previousInput = '';
+            operation = null;
+            currentOperationDisplay.textContent = '';
+            updateDisplay();
+        }
+
+        function backspace() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        function chooseOperation(op) {
+            if (currentInput === '') return;
+            if (previousInput !== '') {
+                calculate();
+            }
+            operation = op;
+            previousInput = currentInput;
+            currentInput = '';
+            currentOperationDisplay.textContent = `${previousInput} ${operation}`;
+        }
+
+        function calculate() {
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            if (isNaN(prev) || isNaN(current)) return;
+
+            switch (operation) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '*':
+                    result = prev * current;
+                    break;
+                case '/':
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentInput = result.toString();
+            operation = null;
+            previousInput = '';
+            currentOperationDisplay.textContent = '';
+            updateDisplay();
+        }
+
+        function calculatePercentage() {
+            const current = parseFloat(currentInput);
+            if (isNaN(current)) return;
+            currentInput = (current / 100).toString();
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
